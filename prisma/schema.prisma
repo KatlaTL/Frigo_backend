@@ -1,0 +1,134 @@
+generator client {
+  provider = "prisma-client-js"
+}
+//To connect to the database the url field for the datasource need to be set
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL") //The url is set via an environmental variable which is defined in .env file
+}
+
+model User {
+  userId                 Int         @id @default(autoincrement())
+  name                   String      @db.Char(255)
+  email                  String      @unique @db.Char(255)
+  password               String      @db.Char(255)
+  isActive               Boolean     @default(true)
+  isVerified             Boolean     @default(false)
+  currentTokenIdentifier String      @db.VarChar(500)
+  departmentId           Int?
+  department             Department? @relation(fields: [departmentId], references: [departmentId])
+  roleId                 Int
+  statusId               Int
+  createdAt              DateTime    @default(now())
+  updatedAt              DateTime    @updatedAt
+  favorites              Favorite[]
+  payment                Payment?
+  role                   Role        @relation(fields: [roleId], references: [roleId])
+  purchases              Purchase[]
+  status                 Status      @relation(fields: [statusId], references: [statusId])
+
+  @@index([departmentId], map: "User_departmentId_fkey")
+  @@index([roleId], map: "User_roleId_fkey")
+}
+
+model Role {
+  roleId    Int      @id @default(autoincrement())
+  title     String   @db.Char(50)
+  priority  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     User[]
+}
+
+model Payment {
+  paymentId   Int      @id @default(autoincrement())
+  externalApi String   @db.VarChar(1000)
+  userId      Int      @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [userId])
+}
+
+model Department {
+  departmentId Int       @id @default(autoincrement())
+  name         String    @db.Char(255)
+  companyId    Int
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  company      Company   @relation(fields: [companyId], references: [companyId])
+  users        User[]
+  products     Product[] @relation("DepartmentProducts")
+
+  @@index([companyId], map: "Department_companyId_fkey")
+}
+
+model Company {
+  companyId      Int          @id @default(autoincrement())
+  name           String       @db.Char(255)
+  inheritanceId  Int?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  parentCompany  Company?     @relation("CompanyInheritance", fields: [inheritanceId], references: [companyId])
+  childCompanies Company[]    @relation("CompanyInheritance")
+  departments    Department[]
+
+  @@index([inheritanceId], map: "Company_inheritanceId_fkey")
+}
+
+model Product {
+  productId   Int          @id @default(autoincrement())
+  name        String       @db.Char(50)
+  price       Decimal      @db.Decimal(9,2)
+  image       Bytes
+  isActive    Boolean      @default(true)
+  categoryId  Int
+  statusId    Int
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  favorites   Favorite[]
+  category    Category     @relation(fields: [categoryId], references: [categoryId])
+  departments Department[] @relation("DepartmentProducts")
+  purchases   Purchase[]
+  status      Status       @relation(fields: [statusId], references: [statusId])
+  @@index([categoryId], map: "Product_categoryId_fkey")
+}
+
+model Favorite {
+  favoriteId Int          @id @default(autoincrement())
+  productId  Int
+  userId     Int
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  product    Product      @relation(fields: [productId], references: [productId])
+  user       User         @relation(fields: [userId], references: [userId])
+
+  @@index([productId], map: "Favorite_productId_fkey")
+  @@index([userId], map: "Favorite_userId_fkey")
+}
+
+model Purchase {
+  purchaseId      Int       @id @default(autoincrement())
+  productId       Int    
+  userId          Int    
+  purchasePrice   Decimal
+  amount          Int
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  product         Product    @relation(fields: [productId], references: [productId])
+  user            User       @relation(fields: [userId], references: [userId])
+}
+
+model Category {
+  categoryId Int          @id @default(autoincrement())
+  title      String       @db.Char(50)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  products   Product[]
+}
+
+model Status {
+  statusId    Int           @id @default(autoincrement())
+  status      String
+  users       User[]
+  products    Product[]
+}
