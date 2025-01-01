@@ -1,14 +1,5 @@
 import { getActiveAndVerifiedUserByEmail } from "@/repositories/userRepository"
 
-// Contains business logic, transformations, and any additional operations based on application needs
-// By having the service depend on the repository, business logic is encapsulated and centralized, keeping it separate from the raw data fetching layer. 
-
-/* --- TODO ---
-Implement functionality and UI for purchases when it comes to the admin panel, 
-the code below is only used by the app for now. */
-
-//----------------------------------- For the app ----------------------------------------
-
 type UserAppType = {
     userId: number;
     hashedPassword: string;
@@ -26,12 +17,6 @@ export const getActiveAndVerifiedUserForApp = async (email: string): Promise<Use
         throw new Error("Email missing");
     }
 
-
-    return users;
-}
-
-export const getSpecificUser = async () => {
-    
     try {
         const user = await getActiveAndVerifiedUserByEmail(email);
         

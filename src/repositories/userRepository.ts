@@ -1,12 +1,5 @@
 import { prisma } from '@/lib/prisma';
 
-// Handles direct communication with the database
-// The repository only returns data without any transformation or extra logic
-
-/* --- TODO ---
-Implement functionality and UI for users (this includes authentication) when it comes to the admin panel, 
-the code below is only used by the app for now. */
-
 type UserType = {
     name: string;
     password: string;

@@ -1,10 +1,10 @@
 generator client {
   provider = "prisma-client-js"
 }
-//To connect to the database the url field for the datasource need to be set
+
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL") //The url is set via an environmental variable which is defined in .env file
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -78,7 +78,7 @@ model Company {
 model Product {
   productId   Int          @id @default(autoincrement())
   name        String       @db.Char(50)
-  price       Decimal      @db.Decimal(9,2)
+  price       Decimal
   image       Bytes
   isActive    Boolean      @default(true)
   categoryId  Int

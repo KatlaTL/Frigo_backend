@@ -1,11 +1,5 @@
-
 import { prisma } from '@/lib/prisma';
 import { Favorite, Product } from '@prisma/client';
-
-// Handles direct communication with the database
-// The repository only returns data without any transformation or extra logic
-
-//----------------------------------- For the app ----------------------------------------
 
 export const getAllFavoritesByUserId = async (userId: number) => {
     return await prisma.product.findMany({

@@ -1,15 +1,6 @@
 import { getAllPurchasesByUserId } from "@/repositories/purchaseRepository";
 import { Decimal } from "@prisma/client/runtime/library";
 
-// Contains business logic, transformations, and any additional operations based on application needs
-// By having the service depend on the repository, business logic is encapsulated and centralized, keeping it separate from the raw data fetching layer. 
-
-/* --- TODO ---
-Implement functionality and UI for purchases when it comes to the admin panel, 
-the code below is only used by the app for now. */
-
-//----------------------------------- For the app ----------------------------------------
-
 type PurchaseHistoryType = {
     purchaseId: number,
     purchasePrice: Decimal | Number,

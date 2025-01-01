@@ -1,14 +1,4 @@
-import { prisma } from '../lib/prisma';
-
-// Handles direct communication with the database
-// The repository only returns data without any transformation or extra logic
-
-export const getAllCategories = async () => {
-    // Fetches all categories with only the needed fields
-    return prisma.category.findMany({
-        select: { categoryId: true, title: true },
-    });
-}
+import { prisma } from '@/lib/prisma';
 
 export const getAllCategoriesWithProductsByUserId = async (userId: number) => {
     return await prisma.category.findMany({
@@ -40,4 +30,3 @@ export const getAllCategoriesWithProductsByUserId = async (userId: number) => {
         }
     })
 }
-
