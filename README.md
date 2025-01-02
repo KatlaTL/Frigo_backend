@@ -1,10 +1,12 @@
 
-# Webudvikling bachelor project - Frigo
+# Webudvikling bachelor project - Frigo Backend
 This project is the app backend part of the bachelor project developed by Asger Thorsboe Lundblad in collaboration with the firm Pentia.
 Frigo is an app developed to internal use and its purpose is to purchase small products from the fridge at Pentias workplace.
 The app doesn't do any direct transactions, instead it stores the purchases in the database so Pentia at a later time can subtract the amount from their workers payslips.
 
 This repository only contains the backend used by the app. To run test the app part run this code in this [repository](https://github.com/KatlaTL/Frigo_app)
+
+[Watch a demo of the project](https://drive.google.com/file/d/1IELgdZdAuCzZsr1nAUKOCfkiGJUkC4qG/view?usp=sharing)
 
 ## Table of Contents
 
@@ -76,7 +78,7 @@ Before running the app make sure you have following setup and installed:
     yarn run start
     ````
 
-<p align="right">(<a href="#Webudvikling-bachelor-project---Frigo">back to top</a>)</p>
+<p align="right">(<a href="#Webudvikling-bachelor-project---Frigo-backend">back to top</a>)</p>
 
 ## Project Structure
 NextJS requires some specific directories and structure such as the app directory and a middleware.ts file at the top level of the src directory. \
@@ -163,4 +165,4 @@ The project structure for the Frigo backend is organized as following:
    - **`services` Directory** Contains all business and data transformation logic
    - **`utils` Directory** Contains simple helper functions or utilities such as validation
 
-<p align="right">(<a href="#Webudvikling-bachelor-project---Frigo">back to top</a>)</p>
+<p align="right">(<a href="#Webudvikling-bachelor-project---Frigo-backend">back to top</a>)</p>
