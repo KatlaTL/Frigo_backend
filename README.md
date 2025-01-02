@@ -33,7 +33,7 @@ Follow these steps to run the backend
 
 ### Prerequisites
 Before running the app make sure you have following setup and installed:
-- Install MySql. For mac [homebrew](https://formulae.brew.sh/formula/mysql) can be used
+- Install and setup MySql. For mac [homebrew](https://formulae.brew.sh/formula/mysql) can be used
 
 ### Deployment
 1. Clone the repository
