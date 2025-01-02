@@ -1,8 +1,12 @@
 
-# Webudvikling bachelor project - Frigo
+# Webudvikling bachelor project - Frigo Backend
 This project is the app backend part of the bachelor project developed by Asger Thorsboe Lundblad in collaboration with the firm Pentia.
 Frigo is an app developed to internal use and its purpose is to purchase small products from the fridge at Pentias workplace.
 The app doesn't do any direct transactions, instead it stores the purchases in the database so Pentia at a later time can subtract the amount from their workers payslips.
+
+This repository only contains the backend used by the app. To run test the app part run this code in this [repository](https://github.com/KatlaTL/Frigo_app)
+
+[Watch a demo of the project](https://drive.google.com/file/d/1IELgdZdAuCzZsr1nAUKOCfkiGJUkC4qG/view?usp=sharing)
 
 ## Table of Contents
 
@@ -31,7 +35,7 @@ Follow these steps to run the backend
 
 ### Prerequisites
 Before running the app make sure you have following setup and installed:
-- Install MySql. For mac [homebrew](https://formulae.brew.sh/formula/mysql) can be used
+- Install and setup MySql. For mac [homebrew](https://formulae.brew.sh/formula/mysql) can be used
 
 ### Deployment
 1. Clone the repository
@@ -74,10 +78,11 @@ Before running the app make sure you have following setup and installed:
     yarn run start
     ````
 
-<p align="right">(<a href="#Webudvikling-bachelor-project---Frigo">back to top</a>)</p>
+<p align="right">(<a href="#Webudvikling-bachelor-project---Frigo-backend">back to top</a>)</p>
 
 ## Project Structure
-The project structure for the Pentia Mobile Chat app is organized as following:
+NextJS requires some specific directories and structure such as the app directory and a middleware.ts file at the top level of the src directory. \
+The project structure for the Frigo backend is organized as following:
 ```
 ├── prisma
 │   ├── migrations
@@ -137,9 +142,6 @@ The project structure for the Pentia Mobile Chat app is organized as following:
     │   ├── purchaseService.ts
     │   ├── types.ts
     │   └── userService.ts
-    ├── styles
-    │   ├── fonts
-    │   └── globals.css
     └── utils
         ├── error
         │   └── UnauthorizedError.ts
@@ -156,116 +158,11 @@ The project structure for the Pentia Mobile Chat app is organized as following:
     - **`migrations`** Migrations in Prisma is a systematic way to evolve the database schema over time in a version-controlled manner. That is why there are multiple migrations.
 2. **`src` Top level Directory**
    - **`app` Directory** This is the directory used in NextJS app router to create API routes
+   - **`constants` Directory** Contains files with constants like status codes
+   - **`lib` Directory** Contains internal libraries that are packaged and provide general-purpose functionality, such as token management
+   - **`middleware` File** Handles all middlewares in NextJS
+   - **`repositories` Directory** Contains all database related functions, this is the directory where Prisma communicates with the database
+   - **`services` Directory** Contains all business and data transformation logic
+   - **`utils` Directory** Contains simple helper functions or utilities such as validation
 
-
-5. **`components` Directory** contains all global components used across the app
-6. **`constants.tsx` File** This file contains all contant values used in the app
-7. **`contexts` Directory** for contexts files
-8. **`hooks` Directory** for custom hooks
-9. **`navigators` Directory** for the apps navigators: Root navigator, App navigator, Auth navigator and Carousel top bar navigator
-10. **`screens` Directory** for the different screens used across the app
-    - **`history`** History screen
-        - **`_components`** Components used in the history screen
-    - **`products`** Products and favorite screen
-        - **`_components`** Components used in the products and favorite screen
-        - **`_strategies`** Strategies to use if it's the  products or favorite screen
-    - **`settings`** Settings in screen
-    - **`signin`** Sign in screen
-        - **`_components`** Components used in the sign in screen
-    - **`splash`** Splash screen
-11. **`services`Directory** for all services files, used to do HTTP request to the backends API
-12. **`utils` Directory** for all files containing utility functions
-
-<p align="right">(<a href="#Webudvikling-bachelor-project---Frigo">back to top</a>)</p>
-
-
-
-
-
-
-
-#Prerequisite 
-MySql should be installed on your Mac, homebrew can be used:<br/>
-https://formulae.brew.sh/formula/mysql 
-
-#Next.js
-The admin panel has been implemented using Next.js App Router which can be read more about through the following link:<br/>
-https://nextjs.org/docs/app 
-
-#Project structure
-Below is an example of a project structure which has been used as inspiration for structuring the code. The structure below uses Domain-Driven Design (DDD).
-
-your-nextjs-app/
-```
-├── prisma/                     # Prisma schema and seed data
-│   ├── schema.prisma
-│   ├── migrations/
-│   └── seed.ts
-│
-├── src/
-│   ├── app/                    # App Router pages and API routes
-│   │   ├── api/
-│   │   │   └── users/
-│   │   │       └── route.ts    # API route for users
-│   │   ├── page.tsx
-│   │   
-│   │   
-│   │
-│   ├── components/             # Reusable components for UI
-│   │   ├── Button.tsx
-│   │   ├── Navbar.tsx
-│   │   └── Table.tsx
-│   │
-│   ├── lib/                    # Shared libraries, helpers, and configuration
-│   │   ├── prisma.ts           # Prisma client instance
-│   │   └── utils.ts            # Helper functions
-│   │
-│   ├── repositories/           # Database access layer (DAL) for Prisma models
-│   │   ├── userRepository.ts   # User-specific database functions
-│   │   └── productRepository.ts
-│   │
-│   └── services/               # Business logic layer. Used to handle the data from the database for the admin panel and the app separately
-│       ├── userService.ts      # User-related business logic
-│       └── productService.ts
-│
-├── .env                        # Environment variables
-├── next.config.js              # Next.js configuration
-└── package.json
-<<<<<<< HEAD
-```
-=======
-```
-
-#Prisma
-The Prisma folder contains migrations and the prisma schema. Prisma is an ORM and makes it possible to work and interact with the database, in this case a MySql database. 
-
-##Migrations
-Migrations in Prisma is a systematic way to evolve the database schema over time in a version-controlled manner. That is why there are multiple migrations.
-
-##schema.prisma
-The Prisma schema makes it possible to define the application models. In this case these models have been defined based on the ER-diagram portrayed in the wiki.
-
-##seed.ts
-The seed file contains data that can be put into the database in order to test if the database works. 
-
-##How it was setup
-The following guide was used to setup Prisma:<br/>
-https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases-typescript-postgresql 
-
-##Prisma commands
-The package.json file contains some Prisma scripts that can be executed through the terminal, that is:
-- ```npx prisma migrate dev``` creates or applies migrations to the database based on the current schema
-- ```npx prisma db push``` synchronizes the Prisma schema with the database without generating migrations in it
-- ```npx prisma db seed``` runs a seeding script to populate the database with test data
-- ```npx prisma migrate reset && npm run db:migrate && npm run db:seed``` resets the database and reinitialize it
-
-#Tailwind
-Tailwind CSS had been used to style the elements and components of the admin panel.<br/>
-Custom colors can be customized through the ```tailwind.config.js``` file where some customized colors have already been defined.
-
-#Public folder
-Next.js can serve static files like images under a folder called ```public``` in the root directory. You can read more about it here:<br/>
-https://nextjs.org/docs/pages/building-your-application/optimizing/static-assets
-
-The public folder only contains svg images from the Figma files that are used by the admin panel.
->>>>>>> 73c1a61eaeed9671c263b82f5f3f0ec0d0ad71f9
+<p align="right">(<a href="#Webudvikling-bachelor-project---Frigo-backend">back to top</a>)</p>
