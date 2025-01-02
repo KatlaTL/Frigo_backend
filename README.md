@@ -23,7 +23,7 @@ The app doesn't do any direct transactions, instead it stores the purchases in t
 
 
 ## Tech Stack
-The backend is developed in NextJS using App Router and Prisma to connect to a MySQL database. \
+The backend is developed in NextJS using App Router and Prisma ORM to connect to a MySQL database. \
 The app are developed in React Native (without Expo) and Typescript. [The app part of the project](https://github.com/KatlaTL/Frigo_app)
 
 ## Run the project
@@ -79,20 +79,91 @@ Before running the app make sure you have following setup and installed:
 ## Project Structure
 The project structure for the Pentia Mobile Chat app is organized as following:
 ```
-
+├── prisma
+│   ├── migrations
+│   │   ├── 20241106135141_frigo_db
+│   │   │   └── migration.sql
+│   │   ├── 20241118121615_frigo_db
+│   │   │   └── migration.sql
+│   │   └── migration_lock.toml
+│   ├── schema.prisma
+│   ├── seed-products.json
+│   └── seed.ts
+├── src
+    ├── app
+    │   └── api
+    │       └── v1
+    │           └── app
+    │               ├── auth
+    │               │   ├── refresh-token
+    │               │   │   └── route.ts
+    │               │   ├── register
+    │               │   │   └── route.ts
+    │               │   ├── sign-in
+    │               │   │   └── route.ts
+    │               │   └── sign-out
+    │               │       └── route.ts
+    │               └── protected
+    │                   ├── products
+    │                   │   └── route.ts
+    │                   └── users
+    │                       └── [userId]
+    │                           ├── categories
+    │                           │   └── products
+    │                           │       └── route.ts
+    │                           ├── favorites
+    │                           │   ├── [productId]
+    │                           │   │   └── route.ts
+    │                           │   └── route.ts
+    │                           └── purchases
+    │                               └── route.ts
+    ├── constants
+    │   └── api.ts
+    ├── lib
+    │   ├── auth
+    │   │   ├── hash.ts
+    │   │   └── tokens.ts
+    │   ├── imageProcessing.ts
+    │   └── prisma.ts
+    ├── middleware.ts
+    ├── repositories
+    │   ├── categoryRepository.ts
+    │   ├── productRepository.ts
+    │   ├── purchaseRepository.ts
+    │   └── userRepository.ts
+    ├── services
+    │   ├── categoryService.ts
+    │   ├── favoriteService.ts
+    │   ├── purchaseService.ts
+    │   ├── types.ts
+    │   └── userService.ts
+    ├── styles
+    │   ├── fonts
+    │   └── globals.css
+    └── utils
+        ├── error
+        │   └── UnauthorizedError.ts
+        └── validation
+            ├── validateAuthParams.ts
+            ├── validateCategoriesProductsParams.ts
+            ├── validateFavoriteParams.ts
+            ├── validateProductFormData.ts
+            ├── validatePurchaseParams.ts
+            └── validateTokenParams.ts
 ```
 
-1. **`App.tsx` File** This is the root file of the app with all the different providers
-2. **`assets` Directory** for all assets, fonts and styles
-    - **`fonts`** Contains the fonts used
-    - **`img`** Contains images and icons
-    - **`styles`** Contains global styles
-3. **`components` Directory** contains all global components used across the app
-4. **`constants.tsx` File** This file contains all contant values used in the app
-5. **`contexts` Directory** for contexts files
-6. **`hooks` Directory** for custom hooks
-7. **`navigators` Directory** for the apps navigators: Root navigator, App navigator, Auth navigator and Carousel top bar navigator
-8. **`screens` Directory** for the different screens used across the app
+1. **`prisma` Top level Directory** This is directory for the prisma migration and seed files
+    - **`migrations`** Migrations in Prisma is a systematic way to evolve the database schema over time in a version-controlled manner. That is why there are multiple migrations.
+2. **`src` Top level Directory**
+   - **`app` Directory** This is the directory used in NextJS app router to create API routes
+
+
+5. **`components` Directory** contains all global components used across the app
+6. **`constants.tsx` File** This file contains all contant values used in the app
+7. **`contexts` Directory** for contexts files
+8. **`hooks` Directory** for custom hooks
+9. **`navigators` Directory** for the apps navigators: Root navigator, App navigator, Auth navigator and Carousel top bar navigator
+10. **`screens` Directory** for the different screens used across the app
     - **`history`** History screen
         - **`_components`** Components used in the history screen
     - **`products`** Products and favorite screen
@@ -102,8 +173,8 @@ The project structure for the Pentia Mobile Chat app is organized as following:
     - **`signin`** Sign in screen
         - **`_components`** Components used in the sign in screen
     - **`splash`** Splash screen
-9. **`services`Directory** for all services files, used to do HTTP request to the backends API
-10. **`utils` Directory** for all files containing utility functions
+11. **`services`Directory** for all services files, used to do HTTP request to the backends API
+12. **`utils` Directory** for all files containing utility functions
 
 <p align="right">(<a href="#Webudvikling-bachelor-project---Frigo">back to top</a>)</p>
 
