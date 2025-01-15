@@ -1,6 +1,7 @@
 import { getAllPurchasesByUserId } from "@/repositories/purchaseRepository";
 import { PurchaseHistoryType } from "@/services/purchaseService";
 import { Decimal } from "@prisma/client/runtime/library";
+import { object } from "zod";
 
 
 // Integration testing is when you test if different modules or component works together as expected
@@ -21,6 +22,8 @@ describe("Integration test: PurchaseRepository", () => {
         expect(userPurchases).toBeInstanceOf(Array);
 
         userPurchases.forEach(user => {
+            expect(user).toBeInstanceOf(Object);
+            
             if (user && typeof user === "object") {
                 expect(user).toHaveProperty("purchaseId");
                 expect(user).toHaveProperty("purchasePrice");
