@@ -1,7 +1,7 @@
 import { getAllPurchasesByUserId } from "@/repositories/purchaseRepository";
 import { Decimal } from "@prisma/client/runtime/library";
 
-type PurchaseHistoryType = {
+export type PurchaseHistoryType = {
     purchaseId: number,
     purchasePrice: Decimal | Number,
     amount: number,
