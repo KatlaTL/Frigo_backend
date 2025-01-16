@@ -57,5 +57,5 @@ export const middleware = async (request: NextRequest) => {
 
 // Configure matcher to apply middleware only to specific routes
 export const config = {
-    matcher: ["/app/api/v1/app/protected/:path*"], // Apply middleware to all routes in the api/app/protected directory
+    matcher: ["/api/v1/app/protected/:path*"], // Apply middleware to all routes in the api/app/protected directory
 };
