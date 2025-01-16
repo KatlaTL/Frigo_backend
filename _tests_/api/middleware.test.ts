@@ -4,6 +4,7 @@ import { NextRequest } from "next/server";
 
 
 describe("Middleware", () => {
+    
     it("Should allow the request if the token is valid", async () => {
         // Generate an access token
         const accessToken = await generateToken({

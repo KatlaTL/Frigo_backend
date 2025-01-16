@@ -7,14 +7,6 @@ jest.mock("@/repositories/purchaseRepository", () => ({
 }))
 
 describe("Unit test: purchaseService", () => {
-    // Ideally use a test database so the tests doesn't effect the production database
-    beforeAll(async () => {
-        // Migrate and seed the test database
-    })
-
-    afterAll(async () => {
-        // Clean up the test database
-    })
 
     it("Should return all purchases with the transform purchase data structure", async () => {
 

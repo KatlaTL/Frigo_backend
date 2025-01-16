@@ -1,4 +1,4 @@
-import { GET, POST } from "@/app/api/v1/app/protected/users/[userId]/purchases/route";
+import { GET } from "@/app/api/v1/app/protected/users/[userId]/purchases/route";
 import * as purchaseService from "@/services/purchaseService";
 import { validateGetPurchasesParams } from "@/utils/validation/validatePurchaseParams";
 import { NextRequest, NextResponse } from "next/server";

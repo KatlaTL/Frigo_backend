@@ -14,7 +14,6 @@ describe("Integration test: purchaseRepository", () => {
         // Clean up the test database
     })
 
-
     it("Should return all purchases by a user with the correct data structure", async () => {
         const userPurchases = await getAllPurchasesByUserId(1);
 
