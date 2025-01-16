@@ -11,11 +11,11 @@ describe("Unit test: purchaseService", () => {
     beforeAll(async () => {
         // Migrate and seed the test database
     })
-    
+
     afterAll(async () => {
         // Clean up the test database
     })
-    
+
     it("Should return all purchases with the transform purchase data structure", async () => {
 
         // Mock data for this specific test
@@ -74,7 +74,7 @@ describe("Unit test: purchaseService", () => {
         expect(transformedUserPurchases[0].data[0].totalPrice).toBe(10);
         expect(transformedUserPurchases[0].totalPrice).toBe(10);
         expect(transformedUserPurchases[0].isCollapsed).toBe(false);
-        
+
         expect(transformedUserPurchases[1].data).toHaveLength(2);
         expect(transformedUserPurchases[1].data[0].receiptItems).toHaveLength(1);
         expect(transformedUserPurchases[1].data[0].totalPrice).toBe(15);
@@ -82,12 +82,14 @@ describe("Unit test: purchaseService", () => {
         expect(transformedUserPurchases[1].data[1].totalPrice).toBe(40);
         expect(transformedUserPurchases[1].totalPrice).toBe(55);
         expect(transformedUserPurchases[1].isCollapsed).toBe(false);
-        
+
         expect(transformedUserPurchases[2].data).toHaveLength(1);
         expect(transformedUserPurchases[2].data[0].receiptItems).toHaveLength(1);
         expect(transformedUserPurchases[2].data[0].totalPrice).toBe(5);
         expect(transformedUserPurchases[2].totalPrice).toBe(5);
         expect(transformedUserPurchases[2].isCollapsed).toBe(false);
 
+        // Ensure mocks were called
+        expect(getAllPurchasesByUserId).toHaveBeenCalledWith(1, undefined, undefined);
     })
 })

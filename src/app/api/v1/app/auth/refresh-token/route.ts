@@ -14,7 +14,7 @@ export const POST = async (request: NextRequest) => {
     try {
         const { refreshToken } = validationResults;
 
-        const payload = await verifyToken(refreshToken, TokenType.REFRESH_TOKEN_SECRET);
+        const payload = await verifyToken(refreshToken, TokenType.REFRESH_TOKEN);
 
         const isTokenValid = await validateJti(payload);
 

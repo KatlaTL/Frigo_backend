@@ -22,7 +22,7 @@ export const middleware = async (request: NextRequest) => {
         }
 
         // Use verifyToken to validate the token. Throws an error if the validation fails
-        await verifyToken(token, TokenType.ACCESS_TOKEN_SECRET);
+        await verifyToken(token, TokenType.ACCESS_TOKEN);
 
         return NextResponse.next();
 
@@ -36,7 +36,7 @@ export const middleware = async (request: NextRequest) => {
                         ...(error.code && { code: error.code }),
                         message: error.message
                     }],
-                    guidance: "Please ensure to include the a valid access token in the authorization header"
+                    guidance: "Please ensure to include a valid access token in the authorization header"
                 }
             }, {
                 status: UNAUTHORIZED

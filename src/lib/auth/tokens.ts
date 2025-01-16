@@ -18,8 +18,8 @@ export type TokenUserType = {
 }
 
 export enum TokenType {
-    ACCESS_TOKEN_SECRET = "ACCESS_TOKEN_SECRET",
-    REFRESH_TOKEN_SECRET = "REFRESH_TOKEN_SECRET"
+    ACCESS_TOKEN = "ACCESS_TOKEN",
+    REFRESH_TOKEN = "REFRESH_TOKEN"
 }
 
 const TOKEN_ISSUER = process.env.TOKEN_ISSUER ?? "";
@@ -129,8 +129,8 @@ export const generateNewTokens = async (userId: number, email: string) => {
         }
 
         // Generate new access and refresh tokens
-        const accessToken = await generateToken(userToken, TokenType.ACCESS_TOKEN_SECRET, "5m"); // Expires in 5 minutes
-        const refreshToken = await generateToken(userToken, TokenType.REFRESH_TOKEN_SECRET, "7d"); // Expires in 7 days
+        const accessToken = await generateToken(userToken, TokenType.ACCESS_TOKEN, "5m"); // Expires in 5 minutes
+        const refreshToken = await generateToken(userToken, TokenType.REFRESH_TOKEN, "7d"); // Expires in 7 days
 
         await setUserCurrentTokenIdentifier(userId, email, refreshToken.jti);
 
@@ -150,9 +150,9 @@ export const generateNewTokens = async (userId: number, email: string) => {
  */
 const getSecret = (type: TokenType): string => {
     switch (type) {
-        case TokenType.ACCESS_TOKEN_SECRET:
+        case TokenType.ACCESS_TOKEN:
             return process.env.ACCESS_TOKEN_SECRET ?? "";
-        case TokenType.REFRESH_TOKEN_SECRET:
+        case TokenType.REFRESH_TOKEN:
             return process.env.REFRESH_TOKEN_SECRET ?? "";
     }
 }
