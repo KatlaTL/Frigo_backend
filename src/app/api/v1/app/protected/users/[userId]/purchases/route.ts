@@ -11,6 +11,8 @@ export const GET = async (request: NextRequest, { params }: { params: Promise<{ 
         return validationResults;
     }
 
+    console.log(validationResults)
+
     try {
         const { parsedUserId, parsedLimit, parsedOffset } = validationResults;
 

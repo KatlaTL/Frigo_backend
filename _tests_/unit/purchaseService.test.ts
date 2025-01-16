@@ -2,21 +2,23 @@ import { getAllPurchasesByUserId } from "@/repositories/purchaseRepository";
 import { getPurchaseHistoryForApp } from "@/services/purchaseService";
 
 // Mock the data recievd from purchaseRepository
-jest.mock("@/repositories/purchaseRepository")
-
+jest.mock("@/repositories/purchaseRepository", () => ({
+    getAllPurchasesByUserId: jest.fn()
+}))
 
 describe("Unit test: purchaseService", () => {
     // Ideally use a test database so the tests doesn't effect the production database
     beforeAll(async () => {
         // Migrate and seed the test database
     })
-
+    
     afterAll(async () => {
         // Clean up the test database
     })
-
+    
     it("Should return all purchases with the transform purchase data structure", async () => {
 
+        // Mock data for this specific test
         const mockPurchaseData = [
             {
                 purchaseId: 1,
@@ -30,8 +32,8 @@ describe("Unit test: purchaseService", () => {
                 purchaseId: 2,
                 purchasePrice: 5,
                 amount: 1,
-                createdAt: "2024-11-21T17:15:12.524Z",
-                updatedAt: "2024-11-21T17:15:12.524Z",
+                createdAt: "2024-11-21T17:17:12.524Z",
+                updatedAt: "2024-11-21T17:17:12.524Z",
                 product: { productId: 3, name: 'Fanta Orange', isActive: true }
             },
             {
@@ -44,7 +46,7 @@ describe("Unit test: purchaseService", () => {
             },
             {
                 purchaseId: 4,
-                purchasePrice: 5,
+                purchasePrice: 20,
                 amount: 2,
                 createdAt: "2024-12-22T17:15:12.524Z",
                 updatedAt: "2024-12-22T17:15:12.524Z",
@@ -60,7 +62,7 @@ describe("Unit test: purchaseService", () => {
             },
         ];
 
-        (getAllPurchasesByUserId as jest.Mock).mockReturnValue(mockPurchaseData);
+        (getAllPurchasesByUserId as jest.Mock).mockResolvedValue(mockPurchaseData);
 
         const transformedUserPurchases = await getPurchaseHistoryForApp(1);
 
@@ -68,8 +70,24 @@ describe("Unit test: purchaseService", () => {
         expect(transformedUserPurchases).toHaveLength(3);
 
         expect(transformedUserPurchases[0].data).toHaveLength(1);
+        expect(transformedUserPurchases[0].data[0].receiptItems).toHaveLength(2);
+        expect(transformedUserPurchases[0].data[0].totalPrice).toBe(10);
+        expect(transformedUserPurchases[0].totalPrice).toBe(10);
+        expect(transformedUserPurchases[0].isCollapsed).toBe(false);
+        
         expect(transformedUserPurchases[1].data).toHaveLength(2);
+        expect(transformedUserPurchases[1].data[0].receiptItems).toHaveLength(1);
+        expect(transformedUserPurchases[1].data[0].totalPrice).toBe(15);
+        expect(transformedUserPurchases[1].data[1].receiptItems).toHaveLength(1);
+        expect(transformedUserPurchases[1].data[1].totalPrice).toBe(40);
+        expect(transformedUserPurchases[1].totalPrice).toBe(55);
+        expect(transformedUserPurchases[1].isCollapsed).toBe(false);
+        
         expect(transformedUserPurchases[2].data).toHaveLength(1);
+        expect(transformedUserPurchases[2].data[0].receiptItems).toHaveLength(1);
+        expect(transformedUserPurchases[2].data[0].totalPrice).toBe(5);
+        expect(transformedUserPurchases[2].totalPrice).toBe(5);
+        expect(transformedUserPurchases[2].isCollapsed).toBe(false);
 
     })
 })

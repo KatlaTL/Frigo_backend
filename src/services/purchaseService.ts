@@ -63,6 +63,7 @@ export const getPurchaseHistoryForApp = async (userId: number, offset?: number |
                     isCollapsed: false,
                     totalPrice: 0
                 } as PurchaseHistoryGrouppedByDateType;
+
                 accumulator.push(currentSection);
             }
 
@@ -80,6 +81,7 @@ export const getPurchaseHistoryForApp = async (userId: number, offset?: number |
                     receiptItems: [],
                     totalPrice: 0
                 } as PurchaseHistoryReceiptType;
+
                 currentSection.data.push(currentReceiptGroup);
             }
 
