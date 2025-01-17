@@ -14,13 +14,13 @@ export type PurchaseHistoryType = {
     updatedAt: Date
 }
 
-type PurchaseHistoryReceiptType = {
+export type PurchaseHistoryReceiptType = {
     receiptTitle: string;
     receiptItems: PurchaseHistoryType[];
     totalPrice: number;
 }
 
-type PurchaseHistoryGrouppedByDateType = {
+export type PurchaseHistoryGrouppedByDateType = {
     title: string;
     data: PurchaseHistoryReceiptType[];
     isCollapsed: boolean;

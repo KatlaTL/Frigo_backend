@@ -1,5 +1,5 @@
 import { getAllPurchasesByUserId } from "@/repositories/purchaseRepository";
-import { getPurchaseHistoryForApp } from "@/services/purchaseService";
+import { getPurchaseHistoryForApp, PurchaseHistoryGrouppedByDateType, PurchaseHistoryReceiptType, PurchaseHistoryType } from "@/services/purchaseService";
 
 // Mock the data recievd from purchaseRepository
 jest.mock("@/repositories/purchaseRepository", () => ({
@@ -57,6 +57,36 @@ describe("Unit test: purchaseService", () => {
         (getAllPurchasesByUserId as jest.Mock).mockResolvedValue(mockPurchaseData);
 
         const transformedUserPurchases = await getPurchaseHistoryForApp(1);
+
+        transformedUserPurchases.forEach(userPurchases => {
+            expect(userPurchases).toMatchObject<Omit<PurchaseHistoryGrouppedByDateType, "data">>({
+                title: expect.any(String),
+                isCollapsed: expect.any(Boolean),
+                totalPrice: expect.any(Number)
+            })
+
+            userPurchases.data.forEach(data => {
+                expect(data).toMatchObject<Omit<PurchaseHistoryReceiptType, "receiptItems">>({
+                    receiptTitle: expect.any(String),
+                    totalPrice: expect.any(Number)
+                })
+
+                data.receiptItems.forEach(item => {
+                    expect(item).toMatchObject<PurchaseHistoryType>({
+                        purchaseId: expect.any(Number),
+                        purchasePrice: expect.any(Number),
+                        amount: expect.any(Number),
+                        product: expect.objectContaining({
+                            productId: expect.any(Number),
+                            name: expect.any(String),
+                            isActive: expect.any(Boolean)
+                        }),
+                        createdAt: expect.any(String),
+                        updatedAt: expect.any(String)
+                    })
+                })
+            })
+        })
 
         expect(transformedUserPurchases).toBeInstanceOf(Array);
         expect(transformedUserPurchases).toHaveLength(3);
