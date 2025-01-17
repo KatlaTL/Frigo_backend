@@ -2,6 +2,13 @@ import { convertBufferToBase64 } from "@/lib/imageProcessing"
 import { getAllFavoritesByUserId } from "@/repositories/productRepository"
 import { CategoryType, isProductWithFavoritesArray, ProductAndFavoriteType } from "./types";
 
+/**
+ * Get all products that are set as favorite for a user. \
+ * Maps the isFavorite array on the products to a boolean. \
+ * Converts the image buffer to a base64
+ * @param userId 
+ * @returns 
+ */
 export const getAllUserFavoritesForApp = async (userId: number) => {
     if (!userId || isNaN(userId)) {
         throw new Error("Invalid userId");
