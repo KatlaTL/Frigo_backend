@@ -8,7 +8,7 @@ This repository only contains the backend used by the app. To test the app part 
 
 OBS! There is currently a problem with the seed file that is causing an error when running the db:migrate:seed script. Therefore, the database cannot currently be seeded until this error is fixed.
 
-[Watch a demo of the project](https://drive.google.com/file/d/1IELgdZdAuCzZsr1nAUKOCfkiGJUkC4qG/view?usp=sharing)
+[Watch a demo of the project](https://drive.google.com/file/d/1IELgdZdAuCzZsr1nAUKOCfkiGJUkC4qG/view?usp=sharing). This demo is off an earlier version and doesn't contain the newly implemented dot indicators on the product carousel, which helps to further enhance the user experience.
 
 ## Table of Contents
 
