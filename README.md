@@ -4,7 +4,9 @@ This project is the app backend part of the bachelor project developed by Asger 
 Frigo is an app developed to internal use and its purpose is to purchase small products from the fridge at Pentias workplace.
 The app doesn't do any direct transactions, instead it stores the purchases in the database so Pentia at a later time can subtract the amount from their workers payslips.
 
-This repository only contains the backend used by the app. To test the app part run this code in this [repository](https://github.com/KatlaTL/Frigo_app)
+This repository only contains the backend used by the app. To test the app part run the code in this [repository](https://github.com/KatlaTL/Frigo_app).
+
+OBS! There is currently a problem with the seed file that is causing an error when running the db:migrate:seed script. Therefore, the database cannot currently be seeded until this error is fixed.
 
 [Watch a demo of the project](https://drive.google.com/file/d/1IELgdZdAuCzZsr1nAUKOCfkiGJUkC4qG/view?usp=sharing)
 
